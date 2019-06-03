@@ -5,13 +5,21 @@ const config = require('./lib/config');
 const webpack = require('./lib/webpack');
 
 const [,, mode = 'build'] = process.argv;
-console.log(mode);
+
+if (!['build', 'dev'].includes(mode)) {
+    console.error(`Unknown staticizer mode "${mode}", allowed values are 'build' and 'dev'`);
+}
 
 const root = process.cwd();
 const szConfigPath = path.resolve(root, 'staticizer.config.js');
 const szConfig = config.load(szConfigPath);
 
-webpack.build({
-    root,
-    config: szConfig
-});
+if (mode === 'build') {
+    webpack.build({
+        root,
+        config: szConfig
+    });
+} else if (mode === 'dev') {
+    console.log('Not implemented yet');
+    process.exit(1);
+}
