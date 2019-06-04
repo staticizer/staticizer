@@ -20,6 +20,8 @@ if (mode === 'build') {
         config: szConfig
     });
 } else if (mode === 'dev') {
-    console.log('Not implemented yet');
-    process.exit(1);
+    webpack.devServer({
+        root,
+        config: szConfig
+    });
 }
